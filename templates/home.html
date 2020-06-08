@@ -18,15 +18,21 @@
 
      <!-- Main Input For Receiving Query to our ML -->
     <form action="{{ url_for('predict')}}"method="post">
-      <input type="text" name="interview_score3" placeholder="Age" required="required" /><br>
-    	<input type="text" name="experience" placeholder=" Sex" required="required" /><br>
-        <input type="text" name="test_score" placeholder="Embarked" required="required" /><br>
-      
-        
-
-       
-
-        <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
+      <label for="Age">Age</label> 
+      <input type="text" id="Age" name="Age"> 
+      <br> 
+      <label for="Sex">Working Class</label> 
+      <select id="Sex" name="Sex"> 
+        <option value="0">male</option> 
+        <option value="1">female</option> 
+      </select> 
+      <br> 
+      <label for="Embarkedx">Working Class</label> 
+      <select id="Embarked" name="Embarked"> 
+        <option value="0">S</option> 
+        <option value="1">C</option> 
+      </select>
+      <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
     </form>
 
    <br>
