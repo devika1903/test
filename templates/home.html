@@ -1,46 +1,27 @@
-<!DOCTYPE html>
-<html >
-<!--From https://codepen.io/frytyler/pen/EGdtg-->
-<head>
-  <meta charset="UTF-8">
-  <title>ML API</title>
-  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<html> 
+<body> 
+    <h3>Prediction Form</h3> 
   
-</head>
-
-<body>
- <div class="login">
-	<h1>Decision Tree Model</h1>
-
-     <!-- Main Input For Receiving Query to our ML -->
-    <form action="{{ url_for('predict')}}"method="post">
+<div> 
+  <form action="/result" method="POST"> 
       <label for="Age">Age</label> 
       <input type="text" id="Age" name="Age"> 
       <br> 
-      <label for="Sex">Working Class</label> 
+      <label for="Sex">Sex</label> 
       <select id="Sex" name="Sex"> 
         <option value="0">male</option> 
         <option value="1">female</option> 
       </select> 
       <br> 
-      <label for="Embarkedx">Working Class</label> 
+      <label for="Embarkedx">Embarked</label> 
       <select id="Embarked" name="Embarked"> 
         <option value="0">S</option> 
         <option value="1">C</option> 
       </select>
-      <button type="submit" class="btn btn-primary btn-block btn-large">Predict</button>
-    </form>
+      
 
-   <br>
-   <br>
-  
-   
- </div>
- {{prediction_text}}
-
-</body>
+   <input type="submit" value="Submit"> 
+  </form> 
+</div> 
+</body> 
 </html>
