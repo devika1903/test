@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
 from flask import Flask, request, jsonify
 from sklearn.externals import joblib
 import traceback
@@ -13,45 +7,29 @@ import numpy as np
 
 app = Flask(__name__)
 
+# prediction function 
+def ValuePredictor(to_predict_list): 
+    to_predict = np.array(to_predict_list).reshape(1, 12) 
+    loaded_model = pickle.load(open("dt.pkl", "rb")) 
+    result = loaded_model.predict(to_predict) 
+    return result[0] 
+  
+@app.route('/result', methods = ['POST']) 
+def result(): 
+    if request.method == 'POST': 
+        to_predict_list = request.form.to_dict() 
+        to_predict_list = list(to_predict_list.values()) 
+        to_predict_list = list(map(int, to_predict_list)) 
+        result = ValuePredictor(to_predict_list)         
+        if int(result)== 1: 
+            prediction ='Play'
+        else: 
+            prediction ='Dont play'            
+        return render_template("result.html", prediction = prediction) 
 
-@app.route('/')
-def home():
-    #return 'Hello World'
-    return render_template('home.html')
-    #return render_template('index.html')
-
-@app.route('/predict',methods = ['POST'])
-def predict():
-    if lr:
-        try:
-            json_ = request.json
-            print(json_)
-            query = pd.get_dummies(pd.DataFrame(json_))
-            query = query.reindex(columns=model_columns, fill_value=0)
-
-            prediction = list(lr.predict(query))
-
-            return jsonify({'prediction': str(prediction)})
-
-        except:
-
-            return jsonify({'trace': traceback.format_exc()})
-    else:
-        print ('Train the model first')
-        return ('No model here to use')
 
 
 
 if __name__ == '__main__':
-    try:
-        port = int(sys.argv[1]) # This is for a command-line input
-    except:
-        port = 12345 # If you don't provide any port the port will be set to 12345
-
-    lr = joblib.load("model.pkl") # Load "model.pkl"
-    print ('Model loaded')
-    model_columns = joblib.load("model_columns.pkl") # Load "model_columns.pkl"
-    print ('Model columns loaded')
-
-    app.run(port=port, debug=True)
+    app.run(debug=True)
 
